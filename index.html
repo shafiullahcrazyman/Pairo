@@ -1172,11 +1172,32 @@
     closeTutorialModalBtn.addEventListener("click", () => closeModal(tutorialModal));
 
     copyAiPromptBtn.addEventListener("click", async () => {
-      const prompt = `Prompt:
+      const prompt = `Please generate a set of the most useful and common Japanese words for polite language learning.
 
-Please generate a set of the most useful and common polite word pairs for Japanese language learning in JSON format. Include just the words, without any praise or sentences. It is not necessary to specify which word is polite. Provide the Japanese words in both kanji and hiragana. For example, write "食べます : たべます." If a word does not have kanji, use either hiragana or katakana, as appropriate.
+IMPORTANT CONTEXT:
+Pairo is a word learning app.
+Do NOT generate sentences, phrases, examples, or explanations.
+Generate ONLY individual words.
 
-The JSON should be an array of objects. Each object must represent a single set and follow this exact structure:
+IMPORTANT OUTPUT RULES:
+1) First, output ONLY the JSON data.
+2) Format it exactly as JSON and wrap it in a triple-backtick code block labeled json so it’s ready to copy.
+3) After the JSON code block ends, output a separate section called "Set Suggestions".
+4) The "Set Suggestions" section must NOT be inside the JSON.
+5) The JSON must remain valid and unchanged.
+
+WORD RULES:
+• Include just individual words.
+• Do not include example usage or sentences.
+• It is not necessary to specify which word is polite.
+• Use polite form words where applicable.
+• Provide Japanese words in both kanji and hiragana.
+• Use this format for Japanese words: 漢字 : ひらがな
+• If a word does not have kanji, use hiragana or katakana only.
+
+STRUCTURE RULES:
+The JSON must be an array of objects.
+Each object must follow this exact structure:
 
 [
   {
@@ -1186,39 +1207,30 @@ The JSON should be an array of objects. Each object must represent a single set 
     "pairs": [
       {
         "word1": "English Word",
-        "word2": "Translated Word"
+        "word2": "Japanese Word"
       }
     ]
   }
 ]
 
-Example Output:
+JSON CONTENT RULES:
+• Generate a single JSON array with 1–5 sets.
+• Each set must contain word pairs only.
+• Each set must contain NO MORE THAN 7 or 8 word pairs.
+• Do NOT exceed 8 pairs under any circumstance.
+• Keep words simple, natural, and commonly used.
+• Do NOT include full sentences or phrases.
+• Output only valid JSON inside the code block.
 
-[
-  {
-    "name": "Daily Life Verbs",
-    "category": "Verbs",
-    "difficulty": "Beginner",
-    "pairs": [
-      {
-        "word1": "to eat",
-        "word2": "食べます : たべます"
-      },
-      {
-        "word1": "to drink",
-        "word2": "飲みます : のみます"
-      },
-      {
-        "word1": "to do / make",
-        "word2": "します"
-      }
-    ]
-  }
-]
+After the JSON block, include:
 
-Please generate a single JSON array with 1–5 example sets.
-Keep words simple, natural, and clear for learners.
-Output only valid JSON, no extra explanations.`;
+Set Suggestions:
+• Suggest exactly 5 new word set ideas.
+• Each suggestion must focus on word learning only.
+• Each suggestion must have a different topic.
+• Keep suggestions short and clear.
+• Do NOT include JSON in this section.
+• Do NOT repeat topics already used in the JSON.`;
       try {
         await navigator.clipboard.writeText(prompt);
         showToast("Prompt copied!");
